@@ -89,6 +89,7 @@ const createManager = () => {
         const manager = new Manager(name, id, email, office);
         // push the manager to the employee array
         employeesArr.push(manager);
+        teamEditMenu();
         }
     )
 }
@@ -130,9 +131,71 @@ const getEngineerInfo = () => {
     ])
     .then((info) => {
         createEngineer(info);
-        console.log(employeesArr);
+        teamEditMenu();
     })
 }
 
+// functions to get Intern info and push the Intern object to employee array
+const createIntern = (info) => {
+    const { name, id, email, school } = info;
+    const intern = new Intern(name, id, email, school);
+    employeesArr.push(intern);
+}
 
+const getInternInfo = () => {
+    inquirer
+    .prompt([
+        {
+            type: 'input',
+            message:"The Intern's name: ",
+            name: 'name',
+            validate: validateName
+        },
+        {
+            type: 'input',
+            message: "The Intern's Id number: ",
+            name: 'id',
+            validate: validateNum
+        },
+        {
+            type: 'input',
+            message:"The Intern's email address: ",
+            name: 'email',
+            validate: validateEmail
+        },
+        {
+            type: 'input',
+            message:"The Intern's school: ",
+            name: 'school',
+        }
+    ])
+    .then((info) => {
+        createIntern(info);
+        teamEditMenu();
+    })
+}
 
+// funtion to show team editing menu
+const teamEditMenu = () => {
+    inquirer.
+    prompt([
+    {
+        type: 'list',
+        message:'What to do next?',
+        name: 'choice',
+        choices: ['Add an engineer', 'Add an intern', 'Finish building the team']
+    }
+    ])
+    .then((response) => {
+        if (response.choice === 'Add an engineer') {
+            getEngineerInfo();
+        } else if (response.choice === 'Add an intern') {
+            getInternInfo();
+        } else {
+            console.log('Finish team build');
+            
+        }
+    })
+}
+
+createManager();
