@@ -15,20 +15,26 @@ import render from "./src/page-template.js";
 
 // TODO: Write Code to gather information about the development team members, and render the HTML file.
 
-/* ------------functions to valiate inquirer input---------------- */
+/*-------------Declaration of global variable---------------------*/
+let employeesArr = []; // an empty array to store employee objects
+/*----------------------------------------------------------------*/
+
+
+
+/* ------------functions to valiate inquirer input----------------*/
 const validateName = (name) => {
     const letterAndSpace = /^[A-Za-z\s]*$/;
     // return true if name is not empty and contains letters only
    return name.trim().match(letterAndSpace) ? true : 'Please input a valid name!';
 }
 const validateNum = (num) => {
-    return Number.isInteger(num) ? true : 'Please enter a valid ID number!';
+    return num.match((/^[0-9]+$/)) ? true : 'Please enter a valid number!';
 }
 
 const validateEmail = (email) => {
     //Ref: https://www.simplilearn.com/tutorials/javascript-tutorial/email-validation-in-javascript
     const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    return email.match(emailRegex) ? true : 'Please input a valid name!'
+    return email.match(emailRegex) ? true : 'Please input a valid email address!'
 }
 
 // Ref: https://gist.github.com/aslamdoctor/6620085
@@ -48,41 +54,85 @@ const valiateGithub = (userName) => {
 
 /*----------------------Functions to get employees' info and create objects------------------------*/
 
+// function to create manager object and push it to employee array
 const createManager = () => {
     inquirer
     .prompt([
-    {
-        type: 'input',
-        message:"What's the name of the team manager?",
-        name: 'managerName',
-        validate: validateName
-    },
-    {
-        type: 'input',
-        message: `What's the id of the manager?`,
-        name: 'managerID',
-        validate: validateNum
-    },
-    {
-        type: 'input',
-        message:"What's the email address of the team manager?",
-        name: 'managerEmail',
-        validate: validateEmail
-    },
-    {
-        type: 'input',
-        message:"What's the office number of the team manager?",
-        name: 'managerOffice',
-        validate: validateNum
-    }
-    
-])
-    .then((response) =>{
-        console.log(response)
+        {
+            type: 'input',
+            message:"The manager's name: ",
+            name: 'name',
+            validate: validateName
+        },
+        {
+            type: 'input',
+            message: "The manager's Id number: ",
+            name: 'id',
+            validate: validateNum
+        },
+        {
+            type: 'input',
+            message:"The manager's email address: ",
+            name: 'email',
+            validate: validateEmail
+        },
+        {
+            type: 'input',
+            message:"The manager's office number: ",
+            name: 'office',
+            validate: validateNum
+        }
+    ])
+    .then((info) =>{
+        const {name, id, email, office} = info;
+        // create the manager object
+        const manager = new Manager(name, id, email, office);
+        // push the manager to the employee array
+        employeesArr.push(manager);
         }
     )
 }
 
+// functions to get engineer info and push the engineer object to employee array
+const createEngineer = (info) => {
+    const {name, id, email, github} = info;
+    const engineer = new Engineer(name, id, email, github);
+    employeesArr.push(engineer);
+}
+
+const getEngineerInfo = () => {
+    inquirer
+    .prompt([
+        {
+            type: 'input',
+            message:"The engineer's name: ",
+            name: 'name',
+            validate: validateName
+        },
+        {
+            type: 'input',
+            message: "The engineer's Id number: ",
+            name: 'id',
+            validate: validateNum
+        },
+        {
+            type: 'input',
+            message:"The engineer's email address: ",
+            name: 'email',
+            validate: validateEmail
+        },
+        {
+            type: 'input',
+            message:"The engineer's github username: ",
+            name: 'github',
+            validate: valiateGithub
+        }
+    ])
+    .then((info) => {
+        createEngineer(info);
+        console.log(employeesArr);
+    })
+}
 
 
 
