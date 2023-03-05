@@ -21,8 +21,8 @@ const validateName = (name) => {
     // return true if name is not empty and contains letters only
    return name.trim().match(letterAndSpace) ? true : 'Please input a valid name!';
 }
-const validateId = (id) => {
-    return Number.isInteger(id) ? true : 'Please enter a valid ID number!';
+const validateNum = (num) => {
+    return Number.isInteger(num) ? true : 'Please enter a valid ID number!';
 }
 
 const validateEmail = (email) => {
@@ -61,7 +61,7 @@ const createManager = () => {
         type: 'input',
         message: `What's the id of the manager?`,
         name: 'managerID',
-        validate: validateId
+        validate: validateNum
     },
     {
         type: 'input',
@@ -70,7 +70,10 @@ const createManager = () => {
         validate: validateEmail
     },
     {
-        
+        type: 'input',
+        message:"What's the office number of the team manager?",
+        name: 'managerOffice',
+        validate: validateNum
     }
     
 ])
