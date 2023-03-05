@@ -19,14 +19,13 @@ import render from "./src/page-template.js";
 let employeesArr = []; // an empty array to store employee objects
 /*----------------------------------------------------------------*/
 
-
-
 /* ------------functions to valiate inquirer input----------------*/
 const validateName = (name) => {
     const letterAndSpace = /^[A-Za-z\s]*$/;
     // return true if name is not empty and contains letters only
    return name.trim().match(letterAndSpace) ? true : 'Please input a valid name!';
 }
+
 const validateNum = (num) => {
     return num.match((/^[0-9]+$/)) ? true : 'Please enter a valid number!';
 }
@@ -201,9 +200,7 @@ const teamEditMenu = () => {
 
 /*--------------------------------------------------------*/
 
-
-/*-----------Write employee details to html file----------*/
-
+/*-----------Write employee info to html file----------*/
 const completeTeam = (teamInfo) => {
     // create the output folder if the folder doesn't exist
     if(!fs.existsSync(OUTPUT_DIR)) {
@@ -230,3 +227,4 @@ const init = () => {
 }
 
 init();
+/*---------------------------------------------------------*/
