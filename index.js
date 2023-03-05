@@ -50,9 +50,9 @@ const valiateGithub = (userName) => {
         return true;
     }
 }
-/*---------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------*/
 
-/*----------------------Functions to get employees' info and create objects------------------------*/
+/*--------Functions to create employee objects------------------*/
 
 // function to create manager object and push it to employee array
 const createManager = () => {
@@ -193,9 +193,40 @@ const teamEditMenu = () => {
             getInternInfo();
         } else {
             console.log('Finish team build');
-            
+            const teamInfo = render(employeesArr);
+            completeTeam(teamInfo);
         }
     })
 }
 
-createManager();
+/*--------------------------------------------------------*/
+
+
+/*-----------Write employee details to html file----------*/
+
+const completeTeam = (teamInfo) => {
+    // create the output folder if the folder doesn't exist
+    if(!fs.existsSync(OUTPUT_DIR)) {
+        fs.mkdir((OUTPUT_DIR), (err) => {
+            if (err) {
+                return console.error(err);
+            }
+        })
+    }
+    // write the data to the html file
+    fs.writeFile(outputPath, teamInfo, (err) => {
+        if(err) {
+            console.log(err);
+        } else {
+            console.log('The team page has been created.');
+        }
+    })
+}
+/*---------------------------------------------------------*/
+
+/*----------------Application initialization---------------*/
+const init = () => {
+    createManager();
+}
+
+init();
