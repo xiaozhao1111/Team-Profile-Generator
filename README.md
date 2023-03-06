@@ -39,7 +39,7 @@ Node.js is needed to run this application. The application will be invoked by us
 ## Screenshot
 Here is a screenshot of the webpage generated with the command-line application.
 
-[Screenshot](./output/Screenshot%20.png)
+![Screenshot](./output/Screenshot%20.png)
 
 ## Contribution 
 Feel free to contribute with the git workflow. Please follow the [contributing guide](https://github.com/github/docs/blob/main/CONTRIBUTING.md).
