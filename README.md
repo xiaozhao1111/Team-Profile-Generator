@@ -37,6 +37,9 @@ Node.js is needed to run this application. The application will be invoked by us
 `node index.js`
 
 ## Screenshot
+Here is a screenchot of the JEST test results.
+![JEST](./output/test-passed.png)
+
 Here is a screenshot of the webpage generated with the command-line application.
 
 ![Screenshot](./output/Screenshot%20.png)
